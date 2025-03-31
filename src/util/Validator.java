@@ -39,45 +39,48 @@ public class Validator {
 
     public static boolean validateInputBoolean(String message, Scanner scanner) {
         System.out.println(message);
-        do {
+        while (true) {
             try {
-                String inputString = scanner.nextLine();
+                String inputString = scanner.nextLine().trim();
                 if (inputString.equalsIgnoreCase("true") || inputString.equalsIgnoreCase("false")) {
                     return Boolean.parseBoolean(inputString);
                 }
-            } catch (Exception ex) {
-                ex.printStackTrace();
+                throw new IllegalArgumentException("Dữ liệu nhập vào không hợp lệ, vui lòng nhập lại");
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
-        } while (true);
+        }
     }
 
     public static String validateInputString(String message, Scanner scanner, StringRule stringRule) {
         System.out.println(message);
-        do {
+        while (true) {
             try {
-                    String inputString = scanner.nextLine().trim();
-                    if (stringRule.isValidString(inputString)) {
-                        return inputString;
-                    }
+                String inputString = scanner.nextLine().trim();
+                if (stringRule.isValidString(inputString)) {
+                    return inputString;
+                }
+                throw new IllegalArgumentException("Dữ liệu nhập vào không hợp lệ, vui lòng nhập lại");
             } catch (Exception ex) {
-                ex.printStackTrace();
+                System.out.println(ex.getMessage());
             }
-        } while (true);
+        }
     }
 
     public static String validateEmail(String message, Scanner scanner) {
         System.out.println(message);
-        do {
+        while (true) {
             try {
                 String inputString = scanner.nextLine();
                 if (Pattern.matches("^[A-Za-z0-9]+[A-Za-z0-9]*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)$", inputString)) {
                     return inputString;
                 }
+                throw new IllegalArgumentException("Dữ liệu nhập vào không hợp lệ, vui lòng nhập lại");
             } catch (Exception ex) {
-                System.err.println("Dữ liệu không hợp lệ, vui lòng nhập lại");
+                System.out.println(ex.getMessage());
             }
 
-        } while (true);
+        }
     }
 
 }
